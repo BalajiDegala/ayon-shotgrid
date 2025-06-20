@@ -115,6 +115,11 @@ You don't need to run these as Dockerized scripts; for that, you'll need either 
 python -m processor
 ```
 
+### Kubernetes deployment
+
+Example manifests for running the services in Kubernetes can be found in
+[`k8s/README.md`](k8s/README.md).
+
 # Usage
 With this integration, you can perform the following actions by navigating to `AYON >Settings > Shotgrid` and loading all projects by clicking `Populate Data`:
 
