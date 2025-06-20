@@ -108,6 +108,43 @@ Makefile and accepts a `--service` option:
 
 The `--service` flag is mandatory for any action that targets a single service.
 
+### Step-by-step: build, push and deploy
+
+The following example shows how to build the service images, push them to a
+registry and run them in Kubernetes. The commands below assume a Rocky Linux
+environment.
+
+1. **Install prerequisites**
+
+   ```sh
+   sudo dnf install -y make docker kubernetes-client
+   sudo systemctl enable --now docker
+   ```
+
+2. **Build the Docker images**
+
+   ```sh
+   cd services
+   ./manage.sh build-all   # or: make build-all
+   ```
+
+3. **Push the images to your registry**
+
+   ```sh
+   ./manage.sh dist-all    # or push manually with docker push
+   ```
+
+4. **Deploy to Kubernetes**
+
+   ```sh
+   kubectl apply -f k8s/leecher-deployment.yaml
+   kubectl apply -f k8s/processor-deployment.yaml
+   kubectl apply -f k8s/transmitter-deployment.yaml
+   ```
+
+   Make sure you created the `Secret` and `ConfigMap` described in
+   [`k8s/README.md`](k8s/README.md).
+
 ### Running it without docker or make
 You don't need to run these as Dockerized scripts; for that, you'll need either [Poetry](https://python-poetry.org/) installed and create an environment specified by the `pyproject.toml` or using `virtualenv` and install the packages specified in the `[tool.poetry.dependencies]` section of the `pyproject.toml`; once in that environment, you'll need to load the contents of the `.env` file and finally:
 
