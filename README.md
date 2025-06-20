@@ -97,6 +97,17 @@ docker run --rm -u ayonuser -ti \
 
 This one is trickier since the Makefile will symlink the `shotgrid_common` inside the `service/processor` folder.
 
+For convenience there is also a small shell wrapper in `services/manage.sh` that
+mirrors the behaviour of `manage.ps1`. It simply forwards commands to the
+Makefile and accepts a `--service` option:
+
+```sh
+./services/manage.sh build --service processor
+./services/manage.sh dist-all
+```
+
+The `--service` flag is mandatory for any action that targets a single service.
+
 ### Running it without docker or make
 You don't need to run these as Dockerized scripts; for that, you'll need either [Poetry](https://python-poetry.org/) installed and create an environment specified by the `pyproject.toml` or using `virtualenv` and install the packages specified in the `[tool.poetry.dependencies]` section of the `pyproject.toml`; once in that environment, you'll need to load the contents of the `.env` file and finally:
 
