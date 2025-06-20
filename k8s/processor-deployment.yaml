@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shotgrid-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shotgrid-processor
+  template:
+    metadata:
+      labels:
+        app: shotgrid-processor
+    spec:
+      containers:
+      - name: processor
+        image: ynput/ayon-shotgrid-processor:0.6.2+dev
+        env:
+        - name: AYON_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: shotgrid-secret
+              key: AYON_API_KEY
+        - name: AYON_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: shotgrid-config
+              key: AYON_SERVER_URL
+        - name: AYON_ADDON_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: shotgrid-config
+              key: AYON_ADDON_NAME
+        - name: AYON_ADDON_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: shotgrid-config
+              key: AYON_ADDON_VERSION

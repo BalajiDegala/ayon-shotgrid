@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shotgrid-leecher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shotgrid-leecher
+  template:
+    metadata:
+      labels:
+        app: shotgrid-leecher
+    spec:
+      containers:
+      - name: leecher
+        image: ynput/ayon-shotgrid-leecher:0.6.2+dev
+        env:
+        - name: AYON_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: shotgrid-secret
+              key: AYON_API_KEY
+        - name: AYON_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: shotgrid-config
+              key: AYON_SERVER_URL
+        - name: AYON_ADDON_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: shotgrid-config
+              key: AYON_ADDON_NAME
+        - name: AYON_ADDON_VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: shotgrid-config
+              key: AYON_ADDON_VERSION
