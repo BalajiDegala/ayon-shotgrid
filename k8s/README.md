@@ -19,7 +19,7 @@ Create a ConfigMap providing the server URL and addon information:
 kubectl create configmap shotgrid-config \
   --from-literal=AYON_SERVER_URL=https://ayon.example.com \
   --from-literal=AYON_ADDON_NAME=shotgrid \
-  --from-literal=AYON_ADDON_VERSION=0.6.2+dev
+  --from-literal=AYON_ADDON_VERSION=0.6.1
 ```
 
 ## Deployments
