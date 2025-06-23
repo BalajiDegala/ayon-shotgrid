@@ -183,7 +183,10 @@ class ShotgridProcessor:
 
         if self._sg is None:
             try:
-                validate.validate_sg_url(self.sg_url)
+                validate.validate_sg_url(
+                    self.sg_url,
+                    self.settings.get("shotgrid_no_ssl_validation", False),
+                )
                 self._sg = shotgun_api3.Shotgun(
                     self.sg_url,
                     script_name=self.sg_script_name,

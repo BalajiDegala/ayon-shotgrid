@@ -122,11 +122,18 @@ def _validate_project_statuses_mapping(
     return report
 
 
-def validate_sg_url(sg_url):
-    """ Ensure provided shotgrid_server URL is valid.
+def validate_sg_url(sg_url, no_ssl_validation=False):
+    """Ensure provided ShotGrid server URL is reachable.
+
+    Parameters
+    ----------
+    sg_url : str
+        The ShotGrid URL to test.
+    no_ssl_validation : bool, optional
+        When ``True`` disables SSL certificate validation for the request.
     """
     try:
-        resp = requests.get(sg_url)
+        resp = requests.get(sg_url, verify=not no_ssl_validation)
         if not resp.ok:
             raise RuntimeError(
                 f"Issue reaching {sg_url}: {resp.reason}"
