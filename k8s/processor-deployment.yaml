@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: processor
-        image: ynput/ayon-shotgrid-processor:0.6.2+dev
+        image: balajidd/ayon-shotgrid-processor:1.0.0
         env:
         - name: AYON_API_KEY
           valueFrom:

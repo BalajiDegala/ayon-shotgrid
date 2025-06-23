@@ -3,10 +3,14 @@ FROM python:3.11-alpine3.18
 ENV PYTHONUNBUFFERED=1
 
 # Install python/pip
-RUN apk add --update --no-cache git curl build-base libffi-dev
+RUN apk add --update --no-cache git curl build-base libffi-dev ca-certificates
 RUN python -m ensurepip
 RUN python -m pip install --no-cache --upgrade pip setuptools poetry pip-autoremove && ln -sf pip3 /usr/bin/pip
 
+COPY ../tls.crt /usr/local/share/ca-certificates/ayon.crt
+RUN update-ca-certificates
+
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 # Create Working directory `/service` and copy `transmitter`
 RUN mkdir /service
 COPY transmitter/pyproject.toml /service/pyproject.toml

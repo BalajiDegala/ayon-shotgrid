@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: transmitter
-        image: ynput/ayon-shotgrid-transmitter:0.6.2+dev
+        image: balajidd/ayon-shotgrid-transmitter:1.0.0
         env:
         - name: AYON_API_KEY
           valueFrom:

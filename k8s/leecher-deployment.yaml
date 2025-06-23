@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: leecher
-        image: ynput/ayon-shotgrid-leecher:0.6.2+dev
+        image: balajidd/ayon-shotgrid-leecher:1.0.0
         env:
         - name: AYON_API_KEY
           valueFrom:
