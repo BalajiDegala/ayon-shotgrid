@@ -12,10 +12,16 @@ spec:
       labels:
         app: shotgrid-processor
     spec:
+      hostAliases:
+        - ip: "192.168.100.240"
+          hostnames:
+            - "ayon.d2-india.com"
       containers:
       - name: processor
-        image: balajidd/ayon-shotgrid-processor:1.0.0
+        image: balajidd/ayon-shotgrid-processor:0.6.1
         env:
+        - name: REQUESTS_CA_BUNDLE
+          value: "/certs/tls.crt"
         - name: AYON_API_KEY
           valueFrom:
             secretKeyRef:
@@ -36,3 +42,12 @@ spec:
             configMapKeyRef:
               name: shotgrid-config
               key: AYON_ADDON_VERSION
+
+        volumeMounts:
+          - name: tls-volume
+            mountPath: /certs
+            readOnly: true
+      volumes:
+        - name: tls-volume
+          secret:
+            secretName: ayon-tls
